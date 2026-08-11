@@ -1,0 +1,43 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: mosque-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: mosque
+      POSTGRES_PASSWORD: mosque
+      POSTGRES_DB: mosque
+      # Deterministic collation so ORDER BY on Albanian names behaves the same
+      # here as it will on Supabase.
+      POSTGRES_INITDB_ARGS: '--locale=C.UTF-8 --encoding=UTF8'
+    ports:
+      - '5433:5432'
+    volumes:
+      - mosque-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U mosque -d mosque']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # Separate database for the golden-case tests (SPEC §5.8) so a test run can
+  # truncate freely without touching dev data. Ephemeral on purpose: no volume.
+  db-test:
+    image: postgres:16-alpine
+    container_name: mosque-db-test
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: mosque
+      POSTGRES_PASSWORD: mosque
+      POSTGRES_DB: mosque_test
+      POSTGRES_INITDB_ARGS: '--locale=C.UTF-8 --encoding=UTF8'
+    ports:
+      - '5434:5432'
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U mosque -d mosque_test']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  mosque-db-data:
