@@ -25,10 +25,22 @@ The API is standalone so a future Expo native client can consume it verbatim.
 
 ## Getting started
 
+Requires Node 24 and Docker.
+
 ```bash
 npm install
 npm run build --workspace shared   # api and web import shared's build output
+
+docker compose up -d               # Postgres on :5433, test Postgres on :5434
+cp api/.env.example api/.env
+npm run dev --workspace api        # http://localhost:3000/api/health
 ```
+
+Dev Postgres runs on **5433**, not 5432, so it never collides with a Postgres already
+installed on the machine. The test database on 5434 is ephemeral — it has no volume and
+the golden-case suite truncates it freely.
+
+When deploying, the only change is `DATABASE_URL` pointing at the Supabase EU project.
 
 ## Conventions
 
