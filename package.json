@@ -1,0 +1,24 @@
+{
+  "name": "mosque-ledger",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Mosque contribution ledger — Regjistri i Xhamisë",
+  "engines": {
+    "node": ">=22"
+  },
+  "workspaces": [
+    "shared",
+    "api",
+    "web"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "dev:shared": "npm run dev --workspace shared"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.2"
+  }
+}

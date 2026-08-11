@@ -1,0 +1,28 @@
+node_modules/
+dist/
+build/
+coverage/
+.turbo/
+
+# env
+.env
+.env.*
+!.env.example
+
+# logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-error.log*
+
+# editors / OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# tooling caches
+*.tsbuildinfo
+.vite/
+.eslintcache
