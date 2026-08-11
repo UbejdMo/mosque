@@ -13,3 +13,4 @@ export * from './households.js';
 export * from './users.js';
 export * from './ledger.js';
 export * from './audit.js';
+export * from './views.js';
