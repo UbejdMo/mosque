@@ -1,23 +1,33 @@
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
-import pg from 'pg';
-import { drizzle, type NodePgDatabase } from 'drizzle-orm/node-postgres';
 import { migrate } from 'drizzle-orm/node-postgres/migrator';
 import { sql } from 'drizzle-orm';
-import * as schema from '../db/schema/index.js';
+import { db, pool } from '../db/client.js';
+import { env } from '../config/env.js';
 
 /**
- * The golden-case suite runs against a real Postgres, never a mock. The whole
- * point of these tests is that the *database* defines what is owed — a mocked
- * view would prove nothing.
+ * Tests run against a real Postgres, never a mock — the whole point is that the
+ * *database* defines what is owed.
+ *
+ * They also run against the same `db` handle production uses, pointed at the
+ * test database by `vitest.config.ts`. A parallel connection here would mean
+ * the repositories were never actually exercised.
  */
-const connectionString =
-  process.env.TEST_DATABASE_URL ?? 'postgres://mosque:mosque@localhost:5434/mosque_test';
+export const testDb = db;
+export const testPool = pool;
 
-pg.types.setTypeParser(pg.types.builtins.INT8, (value) => Number.parseInt(value, 10));
-
-export const testPool = new pg.Pool({ connectionString, max: 4 });
-export const testDb: NodePgDatabase<typeof schema> = drizzle(testPool, { schema });
+/**
+ * Truncating the development database would destroy real ledger data. Refuse
+ * to touch anything that is not visibly a test database.
+ */
+function assertTestDatabase(): void {
+  const url = env.DATABASE_URL;
+  if (!/_test(\b|$)/.test(new URL(url).pathname)) {
+    throw new Error(
+      `Refusing to run destructive test setup against ${url} — expected a database whose name ends in _test`,
+    );
+  }
+}
 
 const migrationsFolder = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -25,17 +35,18 @@ const migrationsFolder = path.resolve(
 );
 
 export async function migrateTestDb(): Promise<void> {
-  await migrate(testDb, { migrationsFolder });
+  assertTestDatabase();
+  await migrate(db, { migrationsFolder });
 }
 
 /**
- * Wipe between cases. RESTART IDENTITY CASCADE in one statement so foreign
- * keys never dictate the order — and note this is the one place `audit_logs`
- * may be emptied: TRUNCATE does not fire the row/statement triggers that
- * reject UPDATE and DELETE.
+ * Wipe between cases. One statement so foreign keys never dictate the order —
+ * and note this is the only way `audit_logs` is ever emptied: TRUNCATE does not
+ * fire the triggers that reject UPDATE and DELETE.
  */
 export async function resetTestDb(): Promise<void> {
-  await testDb.execute(sql`
+  assertTestDatabase();
+  await db.execute(sql`
     TRUNCATE TABLE
       payment_allocations, payments, collection_batches, year_settlements,
       persons, households, rates, audit_logs, users, mosques
@@ -43,6 +54,14 @@ export async function resetTestDb(): Promise<void> {
   `);
 }
 
+let closed = false;
+
+/**
+ * Idempotent: a file with several `describe` blocks would otherwise end the
+ * shared pool once per block, and the second call throws.
+ */
 export async function closeTestDb(): Promise<void> {
-  await testPool.end();
+  if (closed) return;
+  closed = true;
+  await pool.end();
 }

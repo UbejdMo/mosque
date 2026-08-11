@@ -5,7 +5,17 @@ export default defineConfig({
     // Test files share one Postgres and truncate between cases, so they must
     // not run against it concurrently.
     fileParallelism: false,
-    env: { NODE_ENV: 'test' },
+    /**
+     * Point the application's own `db` handle at the test database, so tests
+     * exercise the real repositories. Set here rather than in `api/.env`
+     * because dotenv does not override variables that are already present —
+     * these win.
+     */
+    env: {
+      NODE_ENV: 'test',
+      DATABASE_URL:
+        process.env.TEST_DATABASE_URL ?? 'postgres://mosque:mosque@localhost:5434/mosque_test',
+    },
     include: ['src/**/*.test.ts'],
   },
 });
