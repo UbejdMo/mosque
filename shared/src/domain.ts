@@ -24,6 +24,13 @@ export type ExitReason = (typeof EXIT_REASONS)[number];
 export const ROLES = ['super_admin', 'imam', 'collector', 'member'] as const;
 export type Role = (typeof ROLES)[number];
 
+/**
+ * Member self-registrations land as `pending` and wait in the approvals queue
+ * (SPEC §7). Staff accounts are created directly as `active` by a super_admin.
+ */
+export const USER_STATUSES = ['pending', 'active', 'rejected', 'disabled'] as const;
+export type UserStatus = (typeof USER_STATUSES)[number];
+
 export const BATCH_STATUSES = ['open', 'closed', 'confirmed'] as const;
 export type BatchStatus = (typeof BATCH_STATUSES)[number];
 
