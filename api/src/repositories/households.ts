@@ -1,8 +1,9 @@
-import { and, asc, desc, eq, isNull, sql } from 'drizzle-orm';
+import { and, asc, desc, eq, isNull, sql, type SQL } from 'drizzle-orm';
 import type { HouseholdStatus } from '@mosque/shared';
 import { db } from '../db/client.js';
 import {
   households,
+  persons,
   vHouseholdBalance,
   type households as HouseholdsTable,
 } from '../db/schema/index.js';
@@ -34,13 +35,15 @@ export interface HouseholdWithBalance extends Household {
 }
 
 export interface ListOptions {
-  neighbourhood?: string;
-  status?: HouseholdStatus;
+  /** Matches a person's full name or the neighbourhood, ignoring diacritics. */
+  search?: string | undefined;
+  neighbourhood?: string | undefined;
+  status?: HouseholdStatus | undefined;
   /** For the arrears list: only households owing at least this many years (SPEC §12). */
-  minYearsUnpaid?: number;
-  includeDeleted?: boolean;
-  limit?: number;
-  offset?: number;
+  minYearsUnpaid?: number | undefined;
+  includeDeleted?: boolean | undefined;
+  limit?: number | undefined;
+  offset?: number | undefined;
 }
 
 export async function list(
@@ -66,6 +69,7 @@ export async function list(
         options.minYearsUnpaid !== undefined
           ? sql`${vHouseholdBalance.yearsUnpaid} >= ${options.minYearsUnpaid}`
           : undefined,
+        searchClause(options.search),
       ),
     )
     // Sorted by what is owed: this is the order the collector walks in.
@@ -79,6 +83,29 @@ export async function list(
     yearsUnpaid: row.yearsUnpaid ?? 0,
     oldestUnpaidYear: row.oldestUnpaidYear ?? null,
   }));
+}
+
+/**
+ * Search by a person's name, their father's name, or the neighbourhood
+ * (SPEC §10). Diacritic-insensitive in both directions, because the notebook
+ * spells names inconsistently and the collector types in a hurry.
+ */
+function searchClause(term: string | undefined): SQL | undefined {
+  const trimmed = term?.trim();
+  if (!trimmed) return undefined;
+
+  const pattern = `%${trimmed.toLowerCase()}%`;
+  return sql`(
+    EXISTS (
+      SELECT 1 FROM ${persons} p
+      WHERE p.household_id = ${households.id}
+        AND p.deleted_at IS NULL
+        AND immutable_unaccent(lower(p.first_name || ' ' || p.father_name || ' ' || p.last_name))
+            LIKE immutable_unaccent(${pattern})
+    )
+    OR immutable_unaccent(lower(coalesce(${households.neighbourhood}, '')))
+       LIKE immutable_unaccent(${pattern})
+  )`;
 }
 
 /** Returns null rather than throwing, so callers decide between 404 and 403. */
@@ -98,10 +125,10 @@ export async function getById(scope: TenantScope, id: string): Promise<Household
 }
 
 export interface CreateInput {
-  neighbourhood?: string | null;
-  phone?: string | null;
-  notes?: string | null;
-  needsReview?: boolean;
+  neighbourhood?: string | null | undefined;
+  phone?: string | null | undefined;
+  notes?: string | null | undefined;
+  needsReview?: boolean | undefined;
 }
 
 export async function create(scope: TenantScope, input: CreateInput): Promise<Household> {
@@ -130,7 +157,7 @@ export async function create(scope: TenantScope, input: CreateInput): Promise<Ho
   });
 }
 
-export type UpdateInput = Partial<CreateInput & { status: HouseholdStatus }>;
+export type UpdateInput = CreateInput & { status?: HouseholdStatus | undefined };
 
 export async function update(
   scope: TenantScope,
