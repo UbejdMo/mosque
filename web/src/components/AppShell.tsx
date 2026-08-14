@@ -36,6 +36,20 @@ export function AppShell() {
               </NavLink>
             ) : null}
 
+            {isStaff ? (
+              <NavLink
+                to="/import"
+                className={({ isActive }) =>
+                  cn(
+                    'tap-target rounded-lg px-3 py-2 text-sm font-medium',
+                    isActive ? 'bg-brand-50 text-brand-700' : 'text-slate-600 hover:bg-slate-100',
+                  )
+                }
+              >
+                {t('import.openLink')}
+              </NavLink>
+            ) : null}
+
             <select
               aria-label="Language"
               value={i18n.language}

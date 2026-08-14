@@ -103,5 +103,41 @@
     "duplicateReceipt": "Note: this receipt number has been used before",
     "alreadyRecorded": "This payment was already recorded",
     "nothingOwed": "This household owes nothing"
+  },
+  "import": {
+    "title": "Transcribe the notebook",
+    "subtitle": "One household at a time, from the paper book",
+    "openLink": "Transcribe notebook",
+    "household": "Household",
+    "members": "Members",
+    "addMember": "Add member",
+    "removeMember": "Remove",
+    "firstName": "First name",
+    "fatherName": "Father's name",
+    "lastName": "Surname",
+    "joinedYear": "From year",
+    "leftYear": "Until year",
+    "head": "Head of household",
+    "livesAbroad": "Lives abroad",
+    "paidYears": "Years paid",
+    "paidYearsHint": "Click the years ticked in the book. Space toggles a year.",
+    "needsReview": "Unclear — needs review",
+    "notes": "Note",
+    "save": "Save and continue",
+    "saving": "Saving…",
+    "savedCount": "{{count}} households transcribed in this session",
+    "lastSaved": "Saved: {{name}}",
+    "shortcuts": "Ctrl+Enter to save",
+    "errorPrefix": "Not saved",
+    "csv": {
+      "title": "Or upload a CSV",
+      "choose": "Choose file",
+      "hint": "Columns: household_ref, neighbourhood, phone, first_name, father_name, last_name, joined_year, left_year, is_head, lives_abroad, settled_years",
+      "parsed": "{{households}} households, {{persons}} people found",
+      "import": "Import",
+      "importing": "Importing…",
+      "imported": "Imported {{count}} households",
+      "parseError": "Line {{line}}: {{message}}"
+    }
   }
 }

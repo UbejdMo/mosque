@@ -6,6 +6,7 @@ import { LoginPage } from './routes/LoginPage';
 import { HouseholdListPage } from './routes/HouseholdListPage';
 import { HouseholdDetailPage } from './routes/HouseholdDetailPage';
 import { RecordPaymentPage } from './routes/RecordPaymentPage';
+import { ImportPage } from './routes/ImportPage';
 
 export function App() {
   const { t } = useTranslation();
@@ -53,6 +54,7 @@ export function App() {
         <Route path="/households" element={<HouseholdListPage />} />
         <Route path="/households/:id" element={<HouseholdDetailPage />} />
         <Route path="/households/:id/payments/new" element={<RecordPaymentPage />} />
+        <Route path="/import" element={<ImportPage />} />
         <Route path="*" element={<Navigate to="/households" replace />} />
       </Route>
     </Routes>

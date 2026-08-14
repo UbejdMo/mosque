@@ -103,5 +103,41 @@
     "duplicateReceipt": "Kujdes: ky numër fletëpagese është përdorur më parë",
     "alreadyRecorded": "Kjo pagesë ishte regjistruar më parë",
     "nothingOwed": "Kjo familje nuk ka borxh"
+  },
+  "import": {
+    "title": "Transkriptimi i regjistrit",
+    "subtitle": "Një familje pas tjetrës, nga blloku i letrës",
+    "openLink": "Transkripto regjistrin",
+    "household": "Familja",
+    "members": "Anëtarët",
+    "addMember": "Shto anëtar",
+    "removeMember": "Hiq",
+    "firstName": "Emri",
+    "fatherName": "Atësia",
+    "lastName": "Mbiemri",
+    "joinedYear": "Nga viti",
+    "leftYear": "Deri në vitin",
+    "head": "Kryefamiljari",
+    "livesAbroad": "Jashtë vendit",
+    "paidYears": "Vitet e paguara",
+    "paidYearsHint": "Kliko vitet që kanë shenjë në bllok. Hapësira zgjedh vitin.",
+    "needsReview": "E paqartë — për shqyrtim",
+    "notes": "Shënim",
+    "save": "Ruaj dhe vazhdo",
+    "saving": "Duke ruajtur…",
+    "savedCount": "{{count}} familje të transkriptuara në këtë seancë",
+    "lastSaved": "U ruajt: {{name}}",
+    "shortcuts": "Ctrl+Enter për të ruajtur",
+    "errorPrefix": "Nuk u ruajt",
+    "csv": {
+      "title": "Ose ngarko një CSV",
+      "choose": "Zgjidh skedarin",
+      "hint": "Kolonat: household_ref, neighbourhood, phone, first_name, father_name, last_name, joined_year, left_year, is_head, lives_abroad, settled_years",
+      "parsed": "{{households}} familje, {{persons}} persona të gjetur",
+      "import": "Importo",
+      "importing": "Duke importuar…",
+      "imported": "U importuan {{count}} familje",
+      "parseError": "Rreshti {{line}}: {{message}}"
+    }
   }
 }
