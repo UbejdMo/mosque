@@ -7,6 +7,7 @@ import { env, isTest } from './config/env.js';
 import { logger } from './lib/logger.js';
 import { errorHandler, notFoundHandler } from './http/middleware/error-handler.js';
 import { healthRouter } from './routes/health.js';
+import { authRouter } from './routes/auth.js';
 
 /**
  * The API is a pure JSON service — no templates, no static files, no
@@ -36,6 +37,7 @@ export function createApp(): Express {
   }
 
   app.use('/api', healthRouter);
+  app.use('/api', authRouter);
 
   app.use(notFoundHandler);
   app.use(errorHandler);
