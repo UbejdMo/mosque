@@ -11,6 +11,7 @@ import {
   unique,
   uniqueIndex,
   uuid,
+  type AnyPgColumn,
 } from 'drizzle-orm/pg-core';
 import { mosques } from './mosques.js';
 import { entryReasonEnum, exitReasonEnum, householdStatusEnum } from './enums.js';
@@ -80,6 +81,19 @@ export const persons = pgTable(
     isHead: boolean('is_head').notNull().default(false),
     /** Emigration is not an exit and carries no exemption (SPEC §5.2). */
     livesAbroad: boolean('lives_abroad').notNull().default(false),
+    /**
+     * When a household splits (SPEC §5.6), the person's membership of the old
+     * household is closed and a new row opens in the new one — otherwise the
+     * obligation view would retroactively move their whole history across, and
+     * past obligations must stay with the original household.
+     *
+     * This points at the closed row, so one human stays followable across the
+     * split even though they occupy two rows.
+     */
+    predecessorPersonId: uuid('predecessor_person_id').references(
+      (): AnyPgColumn => persons.id,
+      { onDelete: 'restrict' },
+    ),
     deletedAt: timestamp('deleted_at', { withTimezone: true }),
     ...timestamps,
   },
