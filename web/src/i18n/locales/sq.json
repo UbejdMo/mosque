@@ -1,0 +1,53 @@
+{
+  "app": {
+    "name": "Regjistri i Xhamisë",
+    "tagline": "Kontributi vjetor i familjeve"
+  },
+  "common": {
+    "loading": "Duke u ngarkuar…",
+    "save": "Ruaj",
+    "cancel": "Anulo",
+    "search": "Kërko",
+    "year": "Viti",
+    "amount": "Shuma",
+    "total": "Gjithsej",
+    "notes": "Shënime",
+    "phone": "Numri i telefonit",
+    "neighbourhood": "Lagja",
+    "unexpectedError": "Ndodhi një gabim. Provo përsëri."
+  },
+  "login": {
+    "title": "Kyçu",
+    "subtitle": "Vetëm për arkëtarin, imamin dhe anëtarët e regjistruar",
+    "phone": "Numri i telefonit",
+    "phonePlaceholder": "044 123 456",
+    "pin": "PIN-i (6 shifra)",
+    "submit": "Kyçu",
+    "submitting": "Duke u kyçur…",
+    "errors": {
+      "invalidCredentials": "Numri i telefonit ose PIN-i nuk është i saktë",
+      "locked": "Shumë përpjekje. Provo përsëri pas pak minutash.",
+      "pendingApproval": "Regjistrimi yt është ende në pritje të miratimit",
+      "notActive": "Kjo llogari nuk është aktive",
+      "pinFormat": "PIN-i duhet të ketë saktësisht 6 shifra"
+    }
+  },
+  "nav": {
+    "dashboard": "Paneli",
+    "households": "Familjet",
+    "payments": "Pagesat",
+    "batches": "Dorëzimet",
+    "rates": "Tarifat",
+    "logout": "Dil"
+  },
+  "roles": {
+    "super_admin": "Administrator",
+    "imam": "Imam",
+    "collector": "Arkëtar",
+    "member": "Anëtar"
+  },
+  "dashboard": {
+    "title": "Paneli",
+    "signedInAs": "I kyçur si {{role}}"
+  }
+}

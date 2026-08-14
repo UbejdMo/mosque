@@ -1,0 +1,53 @@
+{
+  "app": {
+    "name": "Mosque Ledger",
+    "tagline": "Annual household contributions"
+  },
+  "common": {
+    "loading": "Loading…",
+    "save": "Save",
+    "cancel": "Cancel",
+    "search": "Search",
+    "year": "Year",
+    "amount": "Amount",
+    "total": "Total",
+    "notes": "Notes",
+    "phone": "Phone number",
+    "neighbourhood": "Neighbourhood",
+    "unexpectedError": "Something went wrong. Please try again."
+  },
+  "login": {
+    "title": "Sign in",
+    "subtitle": "For the collector, the imam and registered members",
+    "phone": "Phone number",
+    "phonePlaceholder": "044 123 456",
+    "pin": "PIN (6 digits)",
+    "submit": "Sign in",
+    "submitting": "Signing in…",
+    "errors": {
+      "invalidCredentials": "That phone number or PIN is not correct",
+      "locked": "Too many attempts. Try again in a few minutes.",
+      "pendingApproval": "Your registration is still waiting for approval",
+      "notActive": "This account is not active",
+      "pinFormat": "The PIN must be exactly 6 digits"
+    }
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "households": "Households",
+    "payments": "Payments",
+    "batches": "Handovers",
+    "rates": "Rates",
+    "logout": "Sign out"
+  },
+  "roles": {
+    "super_admin": "Administrator",
+    "imam": "Imam",
+    "collector": "Collector",
+    "member": "Member"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "signedInAs": "Signed in as {{role}}"
+  }
+}
