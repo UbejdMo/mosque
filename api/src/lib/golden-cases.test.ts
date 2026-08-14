@@ -1,7 +1,7 @@
-import { beforeAll, afterAll, beforeEach, describe, expect, it } from 'vitest';
+import { afterAll, beforeEach, describe, expect, it } from 'vitest';
 import { sql } from 'drizzle-orm';
 import { calcCommission } from '@mosque/shared';
-import { closeTestDb, migrateTestDb, resetTestDb, testDb } from '../test/db.js';
+import { closeTestDb, resetTestDb, testDb } from '../test/db.js';
 import {
   CURRENT_YEAR,
   addHousehold,
@@ -26,9 +26,6 @@ import { allocateFifo, assertAllocationsValid } from './ledger.js';
  * year. No pro-rata.
  */
 describe('golden cases (SPEC §5.8)', () => {
-  beforeAll(async () => {
-    await migrateTestDb();
-  });
   beforeEach(async () => {
     await resetTestDb();
   });

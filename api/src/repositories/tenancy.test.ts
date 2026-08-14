@@ -1,6 +1,6 @@
-import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
+import { afterAll, beforeEach, describe, expect, it } from 'vitest';
 import { eq } from 'drizzle-orm';
-import { closeTestDb, migrateTestDb, resetTestDb, testDb } from '../test/db.js';
+import { closeTestDb, resetTestDb, testDb } from '../test/db.js';
 import { CURRENT_YEAR, addHousehold, addPerson, seedMosque } from '../test/factories.js';
 import { auditLogs } from '../db/schema/index.js';
 import { scopeFor, type Actor } from '../db/tenancy.js';
@@ -16,9 +16,6 @@ import { AppError } from '../http/errors.js';
  */
 // File-scoped: the pool is shared by every describe block in this file, so it
 // is opened and closed once here rather than once per block.
-beforeAll(async () => {
-  await migrateTestDb();
-});
 beforeEach(async () => {
   await resetTestDb();
 });

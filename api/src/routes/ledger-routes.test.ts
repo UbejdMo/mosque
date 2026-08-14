@@ -1,8 +1,8 @@
-import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
+import { afterAll, beforeEach, describe, expect, it } from 'vitest';
 import request from 'supertest';
 import { sql } from 'drizzle-orm';
 import type TestAgent from 'supertest/lib/agent.js';
-import { closeTestDb, migrateTestDb, resetTestDb, testDb } from '../test/db.js';
+import { closeTestDb, resetTestDb, testDb } from '../test/db.js';
 import { CURRENT_YEAR, addHousehold, addPerson, seedMosque, type Scenario } from '../test/factories.js';
 import { users } from '../db/schema/index.js';
 import { hashPin } from '../lib/pin.js';
@@ -12,9 +12,6 @@ const app = createApp();
 const PIN = '482913';
 let phoneSeq = 0;
 
-beforeAll(async () => {
-  await migrateTestDb();
-});
 beforeEach(async () => {
   await resetTestDb();
   phoneSeq = 0;

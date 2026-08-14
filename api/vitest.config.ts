@@ -5,6 +5,8 @@ export default defineConfig({
     // Test files share one Postgres and truncate between cases, so they must
     // not run against it concurrently.
     fileParallelism: false,
+    // Migrations run once here, not once per test file.
+    globalSetup: ['./src/test/global-setup.ts'],
     /**
      * Point the application's own `db` handle at the test database, so tests
      * exercise the real repositories. Set here rather than in `api/.env`

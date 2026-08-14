@@ -1,6 +1,6 @@
-import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
+import { afterAll, beforeEach, describe, expect, it } from 'vitest';
 import { eq } from 'drizzle-orm';
-import { closeTestDb, migrateTestDb, resetTestDb, testDb } from '../test/db.js';
+import { closeTestDb, resetTestDb, testDb } from '../test/db.js';
 import { CURRENT_YEAR, addHousehold, addPerson, seedMosque } from '../test/factories.js';
 import { auditLogs } from '../db/schema/index.js';
 import { scopeFor, type Actor, type TenantScope } from '../db/tenancy.js';
@@ -15,9 +15,6 @@ import {
 } from './life-events.js';
 import { dissolveHousehold, splitHousehold } from './household-split.js';
 
-beforeAll(async () => {
-  await migrateTestDb();
-});
 beforeEach(async () => {
   await resetTestDb();
 });

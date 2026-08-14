@@ -1,7 +1,7 @@
-import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
+import { afterAll, beforeEach, describe, expect, it } from 'vitest';
 import request from 'supertest';
 import { eq } from 'drizzle-orm';
-import { closeTestDb, migrateTestDb, resetTestDb, testDb } from '../test/db.js';
+import { closeTestDb, resetTestDb, testDb } from '../test/db.js';
 import { CURRENT_YEAR, addHousehold, seedMosque } from '../test/factories.js';
 import { users } from '../db/schema/index.js';
 import { hashPin } from '../lib/pin.js';
@@ -12,9 +12,6 @@ import { SESSION_COOKIE } from '../lib/session.js';
 const app = createApp();
 const PIN = '482913';
 
-beforeAll(async () => {
-  await migrateTestDb();
-});
 beforeEach(async () => {
   await resetTestDb();
 });
