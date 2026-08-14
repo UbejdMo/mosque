@@ -29,6 +29,13 @@
       "when": 1786719714442,
       "tag": "0003_person_predecessor",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1786720839873,
+      "tag": "0004_unaccent_search",
+      "breakpoints": true
     }
   ]
 }
