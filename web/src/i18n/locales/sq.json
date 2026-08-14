@@ -49,5 +49,59 @@
   "dashboard": {
     "title": "Paneli",
     "signedInAs": "I kyçur si {{role}}"
+  },
+  "households": {
+    "title": "Familjet",
+    "searchPlaceholder": "Kërko sipas emrit, atësisë ose lagjes",
+    "onlyArrears": "Vetëm ato me borxh mbi {{years}} vjet",
+    "empty": "Nuk u gjet asnjë familje",
+    "owes": "Borxhi",
+    "yearsUnpaid_one": "{{count}} vit i papaguar",
+    "yearsUnpaid_other": "{{count}} vjet të papaguara",
+    "members_one": "{{count}} anëtar",
+    "members_other": "{{count}} anëtarë",
+    "noHead": "Pa kryefamiljar",
+    "needsReview": "Për shqyrtim",
+    "dissolved": "E shpërndarë",
+    "settled": "Në rregull"
+  },
+  "household": {
+    "back": "Kthehu te familjet",
+    "members": "Anëtarët",
+    "yearGrid": "Vitet",
+    "paymentHistory": "Historiku i pagesave",
+    "noPayments": "Ende asnjë pagesë e regjistruar",
+    "recordPayment": "Regjistro pagesë",
+    "joined": "Nga {{year}}",
+    "period": "{{from}}–{{to}}",
+    "head": "Kryefamiljari",
+    "livesAbroad": "Jashtë vendit",
+    "left": "Ka dalë ({{year}})",
+    "receipt": "Fletëpagesa {{number}}",
+    "rateMissing": "Nuk është caktuar tarifa për këtë vit"
+  },
+  "yearStatus": {
+    "paid": "Paguar",
+    "partial": "Pjesërisht",
+    "unpaid": "Papaguar",
+    "settled": "Mbyllur"
+  },
+  "payment": {
+    "title": "Regjistro pagesë",
+    "amount": "Shuma e marrë",
+    "date": "Data",
+    "receiptNumber": "Numri i fletëpagesës",
+    "receiptHint": "Nga blloku i fletëpagesave në letër",
+    "note": "Shënim (jo i detyrueshëm)",
+    "allocation": "Ndarja sipas viteve",
+    "allocationHint": "Vitet më të vjetra paguhen të parat. Mund ta ndryshosh.",
+    "unallocated": "{{amount}} nuk mund të ndahet — asnjë vit nuk e ka këtë borxh",
+    "mismatch": "Ndarja duhet të jetë saktësisht {{amount}}",
+    "submit": "Ruaj pagesën",
+    "submitting": "Duke ruajtur…",
+    "saved": "Pagesa u regjistrua",
+    "duplicateReceipt": "Kujdes: ky numër fletëpagese është përdorur më parë",
+    "alreadyRecorded": "Kjo pagesë ishte regjistruar më parë",
+    "nothingOwed": "Kjo familje nuk ka borxh"
   }
 }

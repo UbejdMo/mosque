@@ -49,5 +49,59 @@
   "dashboard": {
     "title": "Dashboard",
     "signedInAs": "Signed in as {{role}}"
+  },
+  "households": {
+    "title": "Households",
+    "searchPlaceholder": "Search by name, father's name or neighbourhood",
+    "onlyArrears": "Only those owing more than {{years}} years",
+    "empty": "No households found",
+    "owes": "Owes",
+    "yearsUnpaid_one": "{{count}} year unpaid",
+    "yearsUnpaid_other": "{{count}} years unpaid",
+    "members_one": "{{count}} member",
+    "members_other": "{{count}} members",
+    "noHead": "No head of household",
+    "needsReview": "Needs review",
+    "dissolved": "Dissolved",
+    "settled": "Up to date"
+  },
+  "household": {
+    "back": "Back to households",
+    "members": "Members",
+    "yearGrid": "Years",
+    "paymentHistory": "Payment history",
+    "noPayments": "No payments recorded yet",
+    "recordPayment": "Record payment",
+    "joined": "From {{year}}",
+    "period": "{{from}}–{{to}}",
+    "head": "Head of household",
+    "livesAbroad": "Lives abroad",
+    "left": "Left ({{year}})",
+    "receipt": "Receipt {{number}}",
+    "rateMissing": "No rate set for this year"
+  },
+  "yearStatus": {
+    "paid": "Paid",
+    "partial": "Partial",
+    "unpaid": "Unpaid",
+    "settled": "Settled"
+  },
+  "payment": {
+    "title": "Record payment",
+    "amount": "Amount received",
+    "date": "Date",
+    "receiptNumber": "Receipt number",
+    "receiptHint": "From the paper receipt book",
+    "note": "Note (optional)",
+    "allocation": "Split across years",
+    "allocationHint": "Oldest years are paid first. You can change this.",
+    "unallocated": "{{amount}} cannot be allocated — no year owes it",
+    "mismatch": "The split must come to exactly {{amount}}",
+    "submit": "Save payment",
+    "submitting": "Saving…",
+    "saved": "Payment recorded",
+    "duplicateReceipt": "Note: this receipt number has been used before",
+    "alreadyRecorded": "This payment was already recorded",
+    "nothingOwed": "This household owes nothing"
   }
 }
