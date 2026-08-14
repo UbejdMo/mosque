@@ -1,7 +1,15 @@
+import { fileURLToPath } from 'node:url';
+import path from 'node:path';
 import { config as loadDotenv } from 'dotenv';
 import { z } from 'zod';
 
-loadDotenv();
+/**
+ * Resolve `.env` relative to the api package rather than the working
+ * directory, so the server behaves the same whether it is started from the
+ * repo root, from `api/`, or by a workspace script.
+ */
+const apiRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
+loadDotenv({ path: path.join(apiRoot, '.env') });
 
 /**
  * Every environment variable the API reads, validated once at boot.
