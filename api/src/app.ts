@@ -12,6 +12,7 @@ import { authRouter } from './routes/auth.js';
 import { householdsRouter } from './routes/households.js';
 import { personsRouter } from './routes/persons.js';
 import { paymentsRouter, ratesRouter } from './routes/payments.js';
+import { importRouter } from './routes/import.js';
 
 /**
  * The API is a pure JSON service — no templates, no static files, no
@@ -59,6 +60,7 @@ export function createApp(): Express {
   app.use('/api', personsRouter);
   app.use('/api', paymentsRouter);
   app.use('/api', ratesRouter);
+  app.use('/api', importRouter);
 
   app.use(notFoundHandler);
   app.use(errorHandler);
