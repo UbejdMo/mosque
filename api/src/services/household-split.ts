@@ -28,9 +28,9 @@ export interface SplitInput {
   /** Which of the moving persons heads the new household. */
   newHeadPersonId: string;
   splitYear: number;
-  neighbourhood?: string | null;
-  phone?: string | null;
-  notes?: string | null;
+  neighbourhood?: string | null | undefined;
+  phone?: string | null | undefined;
+  notes?: string | null | undefined;
 }
 
 export interface SplitResult {

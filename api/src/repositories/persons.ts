@@ -59,12 +59,15 @@ export interface CreateInput {
   fatherName: string;
   lastName: string;
   joinedYear: number;
-  leftYear?: number | null;
-  entryReason?: Person['entryReason'];
-  exitReason?: Person['exitReason'];
-  isHead?: boolean;
-  livesAbroad?: boolean;
-  predecessorPersonId?: string | null;
+  // `| undefined` is explicit throughout because `exactOptionalPropertyTypes`
+  // distinguishes "absent" from "present and undefined", and Zod's `.nullish()`
+  // produces the latter.
+  leftYear?: number | null | undefined;
+  entryReason?: Person['entryReason'] | undefined;
+  exitReason?: Person['exitReason'] | undefined;
+  isHead?: boolean | undefined;
+  livesAbroad?: boolean | undefined;
+  predecessorPersonId?: string | null | undefined;
 }
 
 export async function create(scope: TenantScope, input: CreateInput): Promise<Person> {
@@ -108,7 +111,8 @@ export async function insert(
   return row;
 }
 
-export type UpdateInput = Partial<Omit<CreateInput, 'householdId'>>;
+type Updatable = Omit<CreateInput, 'householdId'>;
+export type UpdateInput = { [K in keyof Updatable]?: Updatable[K] | undefined };
 
 export async function update(
   scope: TenantScope,
