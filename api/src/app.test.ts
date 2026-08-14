@@ -11,9 +11,19 @@ describe('app', () => {
     expect(res.body.status).toBe('ok');
   });
 
-  it('returns the standard error envelope for unknown routes', async () => {
+  it('does not reveal which routes exist to a signed-out caller', async () => {
+    // Everything under /api past the auth routes sits behind `authenticate`,
+    // so an unknown path is refused before it can 404. Deliberate: the route
+    // list is not public.
     const res = await request(app).get('/api/nope');
-    expect(res.status).toBe(404);
-    expect(res.body.error.code).toBe('not_found');
+    expect(res.status).toBe(401);
+    expect(res.body.error.code).toBe('unauthenticated');
+  });
+
+  it('still uses the standard error envelope', async () => {
+    const res = await request(app).get('/api/nope');
+    expect(res.body).toEqual({
+      error: { code: 'unauthenticated', message: expect.any(String) },
+    });
   });
 });
