@@ -1,8 +1,11 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from './lib/auth';
+import { AppShell } from './components/AppShell';
 import { LoginPage } from './routes/LoginPage';
-import { DashboardPage } from './routes/DashboardPage';
+import { HouseholdListPage } from './routes/HouseholdListPage';
+import { HouseholdDetailPage } from './routes/HouseholdDetailPage';
+import { RecordPaymentPage } from './routes/RecordPaymentPage';
 
 export function App() {
   const { t } = useTranslation();
@@ -25,11 +28,33 @@ export function App() {
     );
   }
 
+  /**
+   * A member's whole app is their own household (SPEC §10). They get no
+   * household list — not an empty one, none at all.
+   */
+  if (user.role === 'member') {
+    return (
+      <Routes>
+        <Route element={<AppShell />}>
+          <Route path="/household" element={<HouseholdDetailPage />} />
+          <Route
+            path="*"
+            element={<Navigate to={`/households/${user.householdId ?? ''}`} replace />}
+          />
+          <Route path="/households/:id" element={<HouseholdDetailPage />} />
+        </Route>
+      </Routes>
+    );
+  }
+
   return (
     <Routes>
-      <Route path="/" element={<DashboardPage />} />
-      {/* Signed in: /login is meaningless, so send them home. */}
-      <Route path="*" element={<Navigate to="/" replace />} />
+      <Route element={<AppShell />}>
+        <Route path="/households" element={<HouseholdListPage />} />
+        <Route path="/households/:id" element={<HouseholdDetailPage />} />
+        <Route path="/households/:id/payments/new" element={<RecordPaymentPage />} />
+        <Route path="*" element={<Navigate to="/households" replace />} />
+      </Route>
     </Routes>
   );
 }
